@@ -1,0 +1,356 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #fafbfc;
+  --border: #e3e6ea;
+  --border-strong: #cdd3da;
+  --text: #16191d;
+  --text-2: #5b6572;
+  --text-3: #8b95a3;
+
+  --accent: #2f6df6;
+  --accent-soft: #eaf1ff;
+  --good: #14894f;
+  --good-soft: #e6f5ec;
+  --warn: #b5751a;
+  --warn-soft: #fdf3e2;
+  --bad: #c8372d;
+  --bad-soft: #fdecea;
+
+  --radius: 8px;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+}
+
+/* Deliberately light in all conditions: this is demoed on machines whose OS theme
+   we do not control, and a dashboard that flips to dark unannounced reads as a
+   bug rather than a preference. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* --- layout --------------------------------------------------------- */
+
+.shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 20px 12px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.brand {
+  font-weight: 650;
+  font-size: 17px;
+  padding: 0 10px 18px;
+  letter-spacing: -0.01em;
+}
+.brand small { display: block; font-weight: 400; color: var(--text-3); font-size: 12px; }
+
+.nav a {
+  display: block;
+  padding: 9px 12px;
+  font-size: 15px;
+  border-radius: 6px;
+  color: var(--text-2);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.nav a:hover { background: var(--surface-2); color: var(--text); }
+.nav a.active { background: var(--accent-soft); color: var(--accent); }
+
+.main { flex: 1; padding: 30px 40px 72px; min-width: 0; }
+
+.page-head { margin-bottom: 22px; }
+.page-head h1 { margin: 0 0 5px; font-size: 27px; font-weight: 640; letter-spacing: -0.02em; }
+.page-head p { margin: 0; color: var(--text-2); }
+.row { display: flex; align-items: center; gap: 10px; }
+.spread { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.muted { color: var(--text-2); }
+.dim { color: var(--text-3); font-size: 13px; }
+
+/* --- surfaces ------------------------------------------------------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+.card h2 { margin: 0 0 14px; font-size: 17px; font-weight: 620; }
+.card h3 { margin: 0 0 9px; font-size: 14px; font-weight: 600; color: var(--text-2); }
+
+.grid { display: grid; gap: 12px; }
+.grid.two { grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
+
+/* --- controls ------------------------------------------------------- */
+
+button, .btn {
+  font: inherit;
+  font-weight: 550;
+  padding: 8px 15px;
+  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+button:hover:not(:disabled) { background: var(--surface-2); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.primary:hover:not(:disabled) { filter: brightness(1.08); }
+button.danger { color: var(--bad); border-color: var(--bad); background: transparent; }
+button.sm { padding: 5px 11px; font-size: 13px; }
+
+input, textarea, select {
+  font: inherit;
+  width: 100%;
+  padding: 8px 11px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--accent-soft);
+  border-color: var(--accent);
+}
+textarea { min-height: 68px; resize: vertical; font-family: var(--sans); }
+label { display: block; font-size: 13px; font-weight: 550; color: var(--text-2); margin-bottom: 4px; }
+.field { margin-bottom: 12px; }
+.field .dim { margin-top: 3px; }
+.checkbox { display: flex; align-items: center; gap: 8px; }
+.checkbox input { width: auto; }
+
+/* --- tables --------------------------------------------------------- */
+
+table { width: 100%; border-collapse: collapse; }
+th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-3);
+  font-weight: 600;
+  padding: 0 12px 10px;
+  border-bottom: 1px solid var(--border);
+}
+td { padding: 13px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface-2); }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* --- badges --------------------------------------------------------- */
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--surface-2);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.badge.good { background: var(--good-soft); color: var(--good); border-color: transparent; }
+.badge.warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.badge.bad  { background: var(--bad-soft);  color: var(--bad);  border-color: transparent; }
+.badge.info { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+
+.score { font-variant-numeric: tabular-nums; font-weight: 650; }
+.score.good { color: var(--good); }
+.score.warn { color: var(--warn); }
+.score.bad  { color: var(--bad); }
+
+/* --- funnel --------------------------------------------------------- */
+
+.funnel { display: flex; gap: 6px; flex-wrap: wrap; }
+.funnel-step {
+  flex: 1;
+  min-width: 110px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px 18px;
+}
+.funnel-step .n { font-size: 27px; font-weight: 660; font-variant-numeric: tabular-nums; }
+.funnel-step .l { font-size: 12px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
+.funnel-step.active { border-color: var(--accent); background: var(--accent-soft); }
+.funnel-step.rejected .n { color: var(--bad); }
+
+/* --- run timeline --------------------------------------------------- */
+
+.timeline { position: relative; padding-left: 26px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 6px; bottom: 6px;
+  width: 2px;
+  background: var(--border);
+}
+.step { position: relative; margin-bottom: 12px; }
+.step::before {
+  content: '';
+  position: absolute;
+  left: -22px; top: 15px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border-strong);
+}
+.step.completed::before { background: var(--good); border-color: var(--good); }
+.step.failed::before    { background: var(--bad);  border-color: var(--bad); }
+.step.suspended::before { background: var(--warn); border-color: var(--warn); }
+.step.skipped::before   { background: var(--surface); border-color: var(--border-strong); }
+
+.step-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.step-head strong { font-size: 13px; }
+
+/* --- score breakdown ------------------------------------------------ */
+
+.bar {
+  height: 5px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 60px;
+}
+.bar > i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+.bar > i.good { background: var(--good); }
+.bar > i.warn { background: var(--warn); }
+.bar > i.bad  { background: var(--bad); }
+
+/* --- misc ----------------------------------------------------------- */
+
+pre.transcript {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  max-height: 320px;
+  overflow: auto;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  margin: 0;
+}
+
+.empty { padding: 40px; text-align: center; color: var(--text-3); }
+.error {
+  background: var(--bad-soft);
+  color: var(--bad);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+.notice {
+  background: var(--warn-soft);
+  color: var(--warn);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+ul.tight { margin: 4px 0; padding-left: 18px; }
+ul.tight li { margin-bottom: 2px; }
+
+/* --- overview stats -------------------------------------------------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+}
+.stat-value {
+  font-size: 40px;
+  font-weight: 660;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.stat-value.good { color: var(--good); }
+.stat-value.accent { color: var(--accent); }
+.stat-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-top: 4px;
+}
+.stat-sub { font-size: 12px; color: var(--text-3); margin-top: 2px; }
+
+/* --- transcript as a conversation ------------------------------------ */
+
+.convo {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  max-height: 380px;
+  overflow-y: auto;
+  background: var(--surface-2);
+}
+.turn {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 108px 1fr;
+  gap: 10px;
+  align-items: baseline;
+}
+.turn:last-child { border-bottom: none; }
+.turn .who {
+  font-size: 12px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+}
+.turn.ai .who { color: var(--accent); }
+.turn.candidate { background: var(--surface); }
+.turn.candidate .who { color: var(--good); }
+.turn .said { line-height: 1.55; }
+
+audio { border-radius: 6px; }
+
+/* The recruiter note: prose, not a payload. Wider line length and normal text
+   colour, unlike the monospace blocks used for raw API bodies. */
+pre.note {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 16px 18px;
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--text);
+  max-height: 460px;
+  overflow-y: auto;
+}

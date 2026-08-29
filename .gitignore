@@ -1,0 +1,35 @@
+# Secrets — never commit.
+# Note `*.env` does NOT match `.env.bak.1787952487`, so backups need their own rule.
+.env
+.env.*
+.env.local
+*.env
+!.env.example
+*.bak
+*.bak.*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Database
+*.db
+*.sqlite3
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Discovery-spike output: real API responses, may contain candidate PII
+docs/jobdiva-shapes.raw.json
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
